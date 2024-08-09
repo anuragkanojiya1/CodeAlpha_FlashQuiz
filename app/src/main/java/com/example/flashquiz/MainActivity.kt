@@ -17,6 +17,9 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph
+import androidx.navigation.compose.rememberNavController
+import com.example.flashquiz.Navigation.NavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,61 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 Surface {
-
-                    val gradient = Brush.horizontalGradient(
-                        colors = listOf(Color(0xFF00BCD4), Color(0xFF1E88E5))
-                    )
-
-                    var showInputScreen by remember { mutableStateOf(true) }
-                    val quizViewModel: QuizViewModel by viewModels()
-
-                    val scrollView = rememberScrollState()
-
-                    Column(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp)
-                        .verticalScroll(scrollView))
-                    {
-
-                        Surface(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .paddingFromBaseline(top = 0.dp, bottom = 0.dp),
-                            color = MaterialTheme.colorScheme.background
-                        ) {
-                            Box {
-                                QuizAnimation(
-                                    modifier = Modifier
-                                        //  .size(500.dp, 400.dp)
-                                        .align(Alignment.TopCenter)
-                                        .scale(scaleX = 1f, scaleY = 1f)
-                                )
-                            }
-                        }
-
-                        if (showInputScreen) {
-                            InputScreen(quizViewModel = quizViewModel)
-                        } else {
-                            QuizScreen(quizViewModel = quizViewModel)
-                        }
-
-                        ExtendedFloatingActionButton(
-                            onClick = { showInputScreen = !showInputScreen },
-                            modifier = Modifier
-                                .align(Alignment.CenterHorizontally)
-                                .padding(10.dp)
-                                .background(gradient, shape = RoundedCornerShape(0.dp))
-                                .height(50.dp)
-                        ) {
-                            Text(if (showInputScreen) "Start Quiz" else "Add Questions")
-                        }
-
-//                        if (showInputScreen) {
-//                            InputScreen(quizViewModel = quizViewModel)
-//                        } else {
-//                            QuizScreen(quizViewModel = quizViewModel)
-//                        }
-                    }
+                        com.example.flashquiz.Navigation.NavGraph(navController = rememberNavController())
                 }
             }
         }
