@@ -60,7 +60,7 @@ fun QuizScreen(quizViewModel: QuizViewModel) {
                         .padding(10.dp)
                         .align(Alignment.CenterHorizontally))
 
-                if(score == quizSize){
+                if(score == quizSize && score!=0){
                     Text(text = "Congratulations, you have Scored Full marks!!! \uD83C\uDF89\uD83E\uDD73",
                         fontSize = 30.sp,
                         fontFamily = FontFamily.Cursive,
